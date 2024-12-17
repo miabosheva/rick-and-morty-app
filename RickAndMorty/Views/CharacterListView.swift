@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CharacterListView: View {
     
-    @StateObject private var viewModel = CharacterViewModel()
+    @EnvironmentObject private var viewModel: CharacterViewModel
     @State private var showAlert = false
     
     var body: some View {

@@ -2,7 +2,10 @@ import SwiftUI
 
 struct CharacterDetailView: View {
     
-    var character: Character
+    @EnvironmentObject var viewModel: CharacterViewModel
+    @State var character: Character
+    @State private var showAlert = false
+    @State private var episodes: [String: Episode] = [:]
     
     init(character: Character) {
         self.character = character
@@ -49,7 +52,9 @@ struct CharacterDetailView: View {
             
             ScrollView {
                 
-                VStack(spacing: 0) {
+                VStack (spacing: 0) {
+                    
+                    // MARK: - Title and Specs
                     
                     VStack(spacing: 0) {
                         
@@ -77,6 +82,8 @@ struct CharacterDetailView: View {
                         .background(Color.primaryBackgroundColor)
                     }
                     
+                    // MARK: - Episodes Stack
+                    
                     VStack {
                         
                         Divider()
@@ -97,34 +104,9 @@ struct CharacterDetailView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: 200)
                         
-                        ForEach(MockData.episodes) { episode in
-                            
-                            VStack(alignment: .leading) {
-                                
-                                Text(episode.episodeNumber)
-                                    .fontWeight(.light)
-                                    .padding(.bottom, 4)
-                                    .padding(.top, 8)
-                                    .foregroundColor(Color.primaryColor)
-                                
-                                Text(episode.name)
-                                    .font(.system(size: 18))
-                                    .fontWeight(.bold)
-                                    .padding(.bottom, 4)
-                                    .foregroundColor(Color.highlightColor)
-                                
-                                Text(episode.airDate)
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.gray)
-                                    .padding(.bottom, 8)
-                                
-                                Divider()
-                                    .background(Color.primaryColor)
-                            }
-                            .padding(.horizontal, 16)
-                            .frame(maxWidth: .infinity, maxHeight: 200)
+                        ForEach(character.episode, id: \.self) { episodeUrl in
+                            EpisodeRowView(episodeUrl: episodeUrl)
                         }
-                        
                     }
                     .padding(.bottom, 32)
                     .background(Color.primaryBackgroundColor)

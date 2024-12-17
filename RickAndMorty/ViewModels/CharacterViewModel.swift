@@ -13,7 +13,7 @@ class CharacterViewModel: ObservableObject {
     
     func loadData() {
         Task {
-            await fecthCharacters()
+            await fetchCharacters()
         }
     }
     
@@ -29,7 +29,7 @@ class CharacterViewModel: ObservableObject {
 extension CharacterViewModel {
     
     @MainActor
-    func fecthCharacters() async {
+    func fetchCharacters() async {
         do {
             let response = try await APIService.fetchCharacters(page: currentPage)
             characters.append(contentsOf: response.results)
@@ -42,5 +42,16 @@ extension CharacterViewModel {
         } catch {
             self.error = error
         }
+    }
+    
+    @MainActor
+    func fetchEpisodeForCharacter(url: String) async -> Episode? {
+        do {
+            let response = try await APIService.fetchEpisodeWithURL(episodeURL: url)
+            return response
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        return nil
     }
 }
