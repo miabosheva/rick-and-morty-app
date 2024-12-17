@@ -9,6 +9,7 @@ struct CharacterSpecsView: View {
             Text(value)
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(Color.primaryColor)
+                .multilineTextAlignment(.center)
             
             Text(title)
                 .font(.system(size: 16))

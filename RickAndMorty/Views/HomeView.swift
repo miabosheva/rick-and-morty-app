@@ -29,6 +29,8 @@ struct HomeView: View {
             .background(Color.secondaryBackgroundColor)
             .navigationTitle("Rick and Morty")
         }
+        // Disable refresh on child views (i.e. on Details View)
+        .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil)
         .foregroundColor(Color.primaryColor)
         .tint(Color.primaryColor)
         .refreshable {

@@ -69,6 +69,9 @@ struct CharacterDetailView: View {
                                 .font(.system(size: 40))
                                 .fontWeight(.bold)
                                 .foregroundColor(Color.primaryColor)
+                                .padding(.horizontal, 16)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
                             
                             HStack(spacing: 32) {
                                 CharacterSpecsView(title: "SPECIES", value: character.species)
@@ -76,8 +79,9 @@ struct CharacterDetailView: View {
                                 CharacterSpecsView(title: "STATUS", value: character.status.rawValue)
                                 CharacterSpecsView(title: "ORIGIN", value: "Earth")
                             }
+                            .padding(.horizontal, 16)
                         }
-                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .frame(maxWidth: .infinity, minHeight: 100)
                         .padding(.bottom, 32)
                         .background(Color.primaryBackgroundColor)
                     }
