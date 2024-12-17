@@ -10,100 +10,125 @@ struct CharacterDetailView: View {
     
     var body: some View {
         
-        VStack(spacing: 0) {
+        ZStack {
             
-            ZStack {
+            VStack {
                 
-                Rectangle()
-                    .fill(.black)
-                    .aspectRatio(1, contentMode: .fill)
-                    .frame(maxWidth: .infinity)
-                    .overlay {
-                        AsyncImage(url: URL(string: character.image)) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image
-                                    .resizable()
-                            case .failure:
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(Color.primaryColor)
-                                    .padding(30)
-                            default:
-                                ProgressView()
+                ZStack {
+                    
+                    Rectangle()
+                        .fill(.black)
+                        .aspectRatio(1, contentMode: .fill)
+                        .frame(maxWidth: .infinity, maxHeight: 400)
+                        .overlay {
+                            AsyncImage(url: URL(string: character.image)) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                case .failure:
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(Color.primaryColor)
+                                        .padding(30)
+                                default:
+                                    ProgressView()
+                                }
                             }
                         }
-                    }
-                
-                LinearGradient(gradient: Gradient(colors: [Color.primaryBackgroundColor, .clear]), startPoint: .bottom, endPoint: .top)
-                    .opacity(1)
-                    .aspectRatio(1, contentMode: .fill)
-            }
-            
-            
-            VStack(alignment: .center, spacing: 18) {
-                
-                Text(character.name)
-                    .font(.system(size: 40))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.primaryColor)
-                
-                HStack(spacing: 32) {
-                    CharacterSpecsView(title: "SPECIES", value: character.species)
-                    CharacterSpecsView(title: "GENDER", value: character.gender.rawValue)
-                    CharacterSpecsView(title: "STATUS", value: character.status.rawValue)
-                    CharacterSpecsView(title: "ORIGIN", value: "Earth")
+                        .ignoresSafeArea()
                 }
+                
+                Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: 150)
-            .padding(.vertical, 8)
-            .background(Color.primaryBackgroundColor)
             
-            Section(header:
+            ScrollView {
+                
+                VStack(spacing: 0) {
+                    
+                    VStack(spacing: 0) {
+                        
+                        LinearGradient(gradient: Gradient(colors: [Color.primaryBackgroundColor, .clear]), startPoint: .bottom, endPoint: .top)
+                            .opacity(1)
+                            .aspectRatio(1, contentMode: .fill)
+                        
+                        
+                        VStack(alignment: .center, spacing: 18) {
+                            
+                            Text(character.name)
+                                .font(.system(size: 40))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.primaryColor)
+                            
+                            HStack(spacing: 32) {
+                                CharacterSpecsView(title: "SPECIES", value: character.species)
+                                CharacterSpecsView(title: "GENDER", value: character.gender.rawValue)
+                                CharacterSpecsView(title: "STATUS", value: character.status.rawValue)
+                                CharacterSpecsView(title: "ORIGIN", value: "Earth")
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .padding(.bottom, 32)
+                        .background(Color.primaryBackgroundColor)
+                    }
+                    
+                    VStack {
+                        
+                        Divider()
+                            .background(Color.primaryColor)
+                        
                         VStack {
-                Text("EPISODES")
-                    .font(.system(size: 18))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.primaryColor)
-                    .padding(.top, 16)
-                
-                Text("where \(character.name) appears")
-                    .font(.system(size: 14))
-                    .fontWeight(.light)
-                    .foregroundColor(Color.primaryColor)
-                    .padding(.bottom, 16)
-            }) {
-                
-                List(character.episode) { episode in
-                    VStack(alignment: .leading) {
-                        Text(episode.episodeNumber)
-                            .fontWeight(.light)
-                            .padding(.vertical, 5)
-                            .foregroundColor(Color.primaryColor)
+                            Text("EPISODES")
+                                .font(.system(size: 18))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.primaryColor)
+                                .padding(.top, 16)
+                            
+                            Text("where \(character.name) appears")
+                                .font(.system(size: 16))
+                                .fontWeight(.light)
+                                .foregroundColor(.gray)
+                                .padding(.bottom, 16)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: 200)
                         
-                        Text(episode.name)
-                            .font(.system(size: 18))
-                            .fontWeight(.bold)
-                            .padding(.bottom, 4)
+                        ForEach(character.episode) { episode in
+                            
+                            VStack(alignment: .leading) {
+
+                                Text(episode.episodeNumber)
+                                    .fontWeight(.light)
+                                    .padding(.bottom, 4)
+                                    .padding(.top, 8)
+                                    .foregroundColor(Color.primaryColor)
+                                
+                                Text(episode.name)
+                                    .font(.system(size: 18))
+                                    .fontWeight(.bold)
+                                    .padding(.bottom, 4)
+                                    .foregroundColor(Color.highlightColor)
+                                
+                                Text(episode.airDate)
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.gray)
+                                    .padding(.bottom, 8)
+                                
+                                Divider()
+                                    .background(Color.primaryColor)
+                            }
+                            .padding(.horizontal, 16)
+                            .frame(maxWidth: .infinity, maxHeight: 200)
+                        }
                         
-                        Text(episode.airDate)
-                            .font(.system(size: 14))
-                            .padding(.bottom, 4)
-                            .foregroundColor(.gray)
                     }
-                    .foregroundColor(Color.highlightColor)
-                    .listRowBackground(Color.secondaryBackgroundColor)
-                    .listRowSeparatorTint(Color.primaryColor)
+                    .padding(.bottom, 32)
+                    .background(Color.primaryBackgroundColor)
                 }
             }
-            .listStyle(InsetListStyle())
-            
         }
         .ignoresSafeArea()
-        .background(Color.secondaryBackgroundColor)
-        
-        // TODO: -  background doesnt show?
+        .background(Color.primaryBackgroundColor)
     }
 }
 
@@ -135,4 +160,3 @@ struct CharacterDetailView: View {
                                 ])
     )
 }
-
