@@ -5,7 +5,7 @@ class CharacterViewModel: ObservableObject {
     @Published var error: Error?
     
     private var currentPage: Int = 1
-    private var hasMorePages: Bool = true
+    private var totalPages: Int?
     
     init() {
         loadData()
@@ -19,6 +19,7 @@ class CharacterViewModel: ObservableObject {
     
     func refreshData() {
         currentPage = 1
+        totalPages = nil
         characters.removeAll()
         loadData()
     }
@@ -31,14 +32,18 @@ extension CharacterViewModel {
     @MainActor
     func fetchCharacters() async {
         do {
+            if totalPages == nil {
+                let response = try await APIService.fetchCharacters(page: currentPage)
+                totalPages = response.info.pages
+                print("TOTAL PAGES: \(totalPages ?? -1)")
+            }
+
+            print(currentPage)
+            guard let totalPages = totalPages, currentPage <= totalPages else { return }
+            
             let response = try await APIService.fetchCharacters(page: currentPage)
             characters.append(contentsOf: response.results)
-            if (response.info.next != nil) {
-                hasMorePages = true
-                currentPage += 1
-            } else {
-                hasMorePages = false
-            }
+            currentPage += 1
         } catch {
             self.error = error
         }
