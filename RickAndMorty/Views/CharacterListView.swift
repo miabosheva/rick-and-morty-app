@@ -2,16 +2,12 @@ import SwiftUI
 
 struct CharacterListView: View {
     
-    let characters = [
-        Character(name: "Rick", species: "Human", image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg", status: .alive, gender: .male, episode: [Episode( name: "Rick and Morty go skiing", airDate: "December 2, 2013", episodeNumber: "S01E23"), Episode( name: "M. Night Shaym-Aliens!", airDate: "December 2, 2013", episodeNumber: "S01E23")]),
-        Character(name: "Morty", species: "Human", image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg", status: .alive, gender: .male, episode: [Episode( name: "Rick and Morty go skiing", airDate: "December 2, 2013", episodeNumber: "S01E23"), Episode( name: "M. Night Shaym-Aliens!", airDate: "December 2, 2013", episodeNumber: "S01E23")]),
-        Character(name: "Beth", species: "Human", image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg", status: .alive, gender: .female, episode: [Episode( name: "Rick and Morty go skiing", airDate: "December 2, 2013", episodeNumber: "S01E23"), Episode( name: "M. Night Shaym-Aliens!", airDate: "December 2, 2013", episodeNumber: "S01E23")]),
-        Character(name: "Jerry", species: "Human", image: "https://rickandmortyapi.com/api/character/avatar/.jpeg", status: .alive, gender: .male, episode: [Episode( name: "Rick and Morty go skiing", airDate: "December 2, 2013", episodeNumber: "S01E23"), Episode( name: "M. Night Shaym-Aliens!", airDate: "December 2, 2013", episodeNumber: "S01E23")])
-    ]
+    @StateObject private var viewModel = CharacterViewModel()
+    @State private var showAlert = false
     
     var body: some View {
         NavigationStack {
-            List(characters) { character in
+            List(viewModel.characters) { character in
                 NavigationLink(destination: CharacterDetailView(character: character)) {
                     HStack {
                         RoundedRectangle(cornerRadius: 20)
@@ -39,13 +35,16 @@ struct CharacterListView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(character.name)
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 22))
                                     .fontWeight(.bold)
                                     .padding(.bottom, 4)
+                                    .foregroundColor(.primaryColor)
                                 
                                 Text(character.species)
                                     .font(.system(size: 16))
                                     .fontWeight(.regular)
+                                    .padding(.bottom, 2)
+                                    .foregroundColor(.highlightColor)
                                 
                                 HStack(spacing: 2) {
                                     Text(character.gender.rawValue)
@@ -55,14 +54,23 @@ struct CharacterListView: View {
                                 .font(.system(size: 16))
                                 .foregroundColor(.gray)
                             }
-                            .padding(.leading, 8)
+                            .padding(.leading, 16)
                         }
-                        .foregroundColor(.primaryColor)
                     }
+                    
                 }
                 .listRowBackground(Color.secondaryBackgroundColor)
                 .listRowSeparatorTint(.primaryColor)
+
             }
+            .onReceive(viewModel.$error, perform: { error in
+                if error != nil {
+                    showAlert.toggle()
+                }
+            })
+            .alert(isPresented: $showAlert, content: {
+                Alert(title: Text("Error"), message: Text(viewModel.error?.localizedDescription ?? ""))
+            })
             .background(Color.secondaryBackgroundColor)
             .listStyle(PlainListStyle())
         }

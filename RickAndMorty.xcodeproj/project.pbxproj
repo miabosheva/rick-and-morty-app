@@ -10,6 +10,10 @@
 		05D60F7DF0B9CF25E8FFDD00 /* Pods_RickAndMorty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12D4798F6377D5C56655811F /* Pods_RickAndMorty.framework */; };
 		0D4E80272D10EC190085C289 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E80262D10EC190085C289 /* AppColors.swift */; };
 		0D4E80292D10F98B0085C289 /* CharacterSpecsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E80282D10F98B0085C289 /* CharacterSpecsView.swift */; };
+		0D4E802D2D11B71E0085C289 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E802C2D11B71E0085C289 /* APIService.swift */; };
+		0D4E802F2D11B7600085C289 /* CharacterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E802E2D11B7600085C289 /* CharacterResponse.swift */; };
+		0D4E80312D11BCBB0085C289 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E80302D11BCBB0085C289 /* MockData.swift */; };
+		0D4E80332D11C70E0085C289 /* CharacterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E80322D11C70E0085C289 /* CharacterError.swift */; };
 		0D6FA4C72D10717100A5A263 /* RickAndMortyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6FA4C62D10717100A5A263 /* RickAndMortyApp.swift */; };
 		0D6FA4CB2D10717200A5A263 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6FA4CA2D10717200A5A263 /* Assets.xcassets */; };
 		0D6FA4CE2D10717200A5A263 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D6FA4CD2D10717200A5A263 /* Preview Assets.xcassets */; };
@@ -23,6 +27,10 @@
 /* Begin PBXFileReference section */
 		0D4E80262D10EC190085C289 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		0D4E80282D10F98B0085C289 /* CharacterSpecsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSpecsView.swift; sourceTree = "<group>"; };
+		0D4E802C2D11B71E0085C289 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		0D4E802E2D11B7600085C289 /* CharacterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterResponse.swift; sourceTree = "<group>"; };
+		0D4E80302D11BCBB0085C289 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		0D4E80322D11C70E0085C289 /* CharacterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterError.swift; sourceTree = "<group>"; };
 		0D6FA4C32D10717100A5A263 /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D6FA4C62D10717100A5A263 /* RickAndMortyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickAndMortyApp.swift; sourceTree = "<group>"; };
 		0D6FA4CA2D10717200A5A263 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,20 +57,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0D4E80242D10EBBE0085C289 /* Resources */ = {
+		0D4E80252D10EBD70085C289 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0D6FA4CA2D10717200A5A263 /* Assets.xcassets */,
 				0D4E80262D10EC190085C289 /* AppColors.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		0D4E80252D10EBD70085C289 /* Resources */ = {
+		0D4E802A2D11B6C20085C289 /* CharacterDetail */ = {
 			isa = PBXGroup;
 			children = (
-				0D6FA4CA2D10717200A5A263 /* Assets.xcassets */,
+				0D6FA4DC2D10CB1A00A5A263 /* CharacterDetailView.swift */,
+				0D4E80282D10F98B0085C289 /* CharacterSpecsView.swift */,
 			);
-			path = Resources;
+			path = CharacterDetail;
 			sourceTree = "<group>";
 		};
 		0D6FA4BA2D10717100A5A263 = {
@@ -86,6 +96,7 @@
 		0D6FA4C52D10717100A5A263 /* RickAndMorty */ = {
 			isa = PBXGroup;
 			children = (
+				0D6FA4C62D10717100A5A263 /* RickAndMortyApp.swift */,
 				0D4E80252D10EBD70085C289 /* Resources */,
 				0D6FA4D72D10CAD300A5A263 /* Views */,
 				0D6FA4D52D10CABF00A5A263 /* ViewModels */,
@@ -108,6 +119,9 @@
 			children = (
 				0D6FA4D82D10CAE000A5A263 /* Character.swift */,
 				0DDCAD952D10DEAF000415E9 /* Episode.swift */,
+				0D4E802E2D11B7600085C289 /* CharacterResponse.swift */,
+				0D4E80302D11BCBB0085C289 /* MockData.swift */,
+				0D4E80322D11C70E0085C289 /* CharacterError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -116,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				0D6FA4E02D10CB3600A5A263 /* CharacterViewModel.swift */,
+				0D4E802C2D11B71E0085C289 /* APIService.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -123,11 +138,8 @@
 		0D6FA4D72D10CAD300A5A263 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0D6FA4C62D10717100A5A263 /* RickAndMortyApp.swift */,
+				0D4E802A2D11B6C20085C289 /* CharacterDetail */,
 				0D6FA4DE2D10CB2700A5A263 /* CharacterListView.swift */,
-				0D6FA4DC2D10CB1A00A5A263 /* CharacterDetailView.swift */,
-				0D4E80282D10F98B0085C289 /* CharacterSpecsView.swift */,
-				0D4E80242D10EBBE0085C289 /* Resources */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,11 +259,15 @@
 			files = (
 				0D6FA4DD2D10CB1A00A5A263 /* CharacterDetailView.swift in Sources */,
 				0D4E80292D10F98B0085C289 /* CharacterSpecsView.swift in Sources */,
+				0D4E80332D11C70E0085C289 /* CharacterError.swift in Sources */,
+				0D4E802F2D11B7600085C289 /* CharacterResponse.swift in Sources */,
 				0DDCAD962D10DEAF000415E9 /* Episode.swift in Sources */,
 				0D6FA4D92D10CAE000A5A263 /* Character.swift in Sources */,
 				0D6FA4DF2D10CB2700A5A263 /* CharacterListView.swift in Sources */,
 				0D4E80272D10EC190085C289 /* AppColors.swift in Sources */,
 				0D6FA4E12D10CB3600A5A263 /* CharacterViewModel.swift in Sources */,
+				0D4E802D2D11B71E0085C289 /* APIService.swift in Sources */,
+				0D4E80312D11BCBB0085C289 /* MockData.swift in Sources */,
 				0D6FA4C72D10717100A5A263 /* RickAndMortyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

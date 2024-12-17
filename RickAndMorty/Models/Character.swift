@@ -1,24 +1,31 @@
 import Foundation
 
-struct Character: Identifiable {
-    var id = UUID()
+struct Character: Identifiable, Codable {
+    var id: Int
     var name: String
     var species: String
     var image: String
     var status: Status
     var gender: Gender
-    var episode: [Episode]
+    var episode: [String]
+    var origin: Location
+    var location: Location
 }
 
-enum Gender: String {
+struct Location: Codable {
+    var name: String
+    var url: String
+}
+
+enum Gender: String, Codable {
     case female = "Female"
     case male = "Male"
     case genderless = "Genderless"
-    case unknown = "Unknown"
+    case unknown = "unknown"
 }
 
-enum Status: String {
+enum Status: String, Codable {
     case dead = "Dead"
     case alive = "Alive"
-    case unknown = "Unknown"
+    case unknown = "unknown"
 }

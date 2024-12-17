@@ -1,15 +1,15 @@
-//
-//  Episode.swift
-//  RickAndMorty
-//
-//  Created by Mia on 12/16/24.
-//
-
 import Foundation
 
-struct Episode: Identifiable {
-    var id = UUID()
+struct Episode: Identifiable, Codable{
+    var id: Int
     var name: String
     var airDate: String
     var episodeNumber: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case airDate = "air_date"
+        case episodeNumber = "episode"
+    }
 }

@@ -12,6 +12,8 @@ struct CharacterDetailView: View {
         
         ZStack {
             
+            // MARK: - Background Image
+            
             VStack {
                 
                 ZStack {
@@ -42,6 +44,8 @@ struct CharacterDetailView: View {
                 
                 Spacer()
             }
+            
+            // MARK: - Contents
             
             ScrollView {
                 
@@ -93,10 +97,10 @@ struct CharacterDetailView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: 200)
                         
-                        ForEach(character.episode) { episode in
+                        ForEach(MockData.episodes) { episode in
                             
                             VStack(alignment: .leading) {
-
+                                
                                 Text(episode.episodeNumber)
                                     .fontWeight(.light)
                                     .padding(.bottom, 4)
@@ -126,6 +130,9 @@ struct CharacterDetailView: View {
                     .background(Color.primaryBackgroundColor)
                 }
             }
+            .toolbarBackground(Color.primaryBackgroundColor.opacity(0.2),for: .navigationBar)
+//            .navigationTitle(character.name)
+//            .navigationBarTitleDisplayMode(.inline)
         }
         .ignoresSafeArea()
         .background(Color.primaryBackgroundColor)
@@ -133,30 +140,5 @@ struct CharacterDetailView: View {
 }
 
 #Preview {
-    CharacterDetailView(character:
-                            Character(
-                                name: "Rick",
-                                species: "Human",
-                                image: "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
-                                status: .alive,
-                                gender: .male,
-                                episode: [
-                                    Episode(
-                                        name: "Rick and Morty go skiing",
-                                        airDate: "December 2, 2013",
-                                        episodeNumber: "S01E23"),
-                                    Episode(
-                                        name: "M. Night Shaym-Aliens!",
-                                        airDate: "December 2, 2013",
-                                        episodeNumber: "S01E23"),
-                                    Episode(
-                                        name: "M. Night Shaym-Aliens!",
-                                        airDate: "December 2, 2013",
-                                        episodeNumber: "S01E23"),
-                                    Episode(
-                                        name: "M. Night Shaym-Aliens!",
-                                        airDate: "December 2, 2013",
-                                        episodeNumber: "S01E23")
-                                ])
-    )
+    CharacterDetailView(character: MockData.character)
 }
