@@ -42,4 +42,29 @@ struct APIService {
         
         return result
     }
+    
+    static func fetchCharactersByName(name: String) async throws -> CharacterResponse {
+        
+        guard let url = URL(string: "https://rickandmortyapi.com/api/character/?name=\(name)") else {
+            throw CharacterError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw CharacterError.invalidResponse
+        }
+
+        if httpResponse.statusCode == 404 {
+            throw CharacterError.noDataFound
+        } else if httpResponse.statusCode != 200 {
+            throw CharacterError.serverError
+        }
+        
+        guard let result = try? JSONDecoder().decode(CharacterResponse.self, from: data) else {
+            throw CharacterError.invalidData
+        }
+        
+        return result
+    }
 }
