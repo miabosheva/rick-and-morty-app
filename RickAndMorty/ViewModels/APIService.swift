@@ -5,15 +5,7 @@ struct APIService {
     @MainActor
     static func fetchCharacters(page: Int) async throws -> CharacterResponse {
         
-        guard var urlComponents = URLComponents(string: "https://rickandmortyapi.com/api/character") else {
-            throw CharacterError.invalidURL
-        }
-        
-        urlComponents.queryItems = [
-            URLQueryItem(name: "page", value: "\(page)")
-        ]
-        
-        guard let url = urlComponents.url else {
+        guard let url = URL(string: "https://rickandmortyapi.com/api/character/?page=\(page)") else {
             throw CharacterError.invalidURL
         }
         

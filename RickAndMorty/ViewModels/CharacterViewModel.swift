@@ -8,9 +8,19 @@ class CharacterViewModel: ObservableObject {
     private var hasMorePages: Bool = true
     
     init() {
+        loadData()
+    }
+    
+    func loadData() {
         Task {
-            await loadData()
+            await fecthCharacters()
         }
+    }
+    
+    func refreshData() {
+        currentPage = 1
+        characters.removeAll()
+        loadData()
     }
 }
 
@@ -19,17 +29,7 @@ class CharacterViewModel: ObservableObject {
 extension CharacterViewModel {
     
     @MainActor
-    func loadData() async {
-        do {
-            let response = try await APIService.fetchCharacters(page: currentPage)
-            characters.append(contentsOf: response.results)
-        } catch {
-            self.error = error
-        }
-    }
-    
-    @MainActor
-    func fetchMoreCharacters() async {
+    func fecthCharacters() async {
         do {
             let response = try await APIService.fetchCharacters(page: currentPage)
             characters.append(contentsOf: response.results)

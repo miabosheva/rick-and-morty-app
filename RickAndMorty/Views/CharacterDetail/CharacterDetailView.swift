@@ -131,8 +131,6 @@ struct CharacterDetailView: View {
                 }
             }
             .toolbarBackground(Color.primaryBackgroundColor.opacity(0.2),for: .navigationBar)
-//            .navigationTitle(character.name)
-//            .navigationBarTitleDisplayMode(.inline)
         }
         .ignoresSafeArea()
         .background(Color.primaryBackgroundColor)

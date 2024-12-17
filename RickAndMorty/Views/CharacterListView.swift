@@ -59,9 +59,17 @@ struct CharacterListView: View {
                     }
                     
                 }
+                .onAppear {
+                    if character.id == viewModel.characters.last?.id {
+                        viewModel.loadData()
+                    }
+                }
                 .listRowBackground(Color.secondaryBackgroundColor)
                 .listRowSeparatorTint(.primaryColor)
 
+            }
+            .refreshable {
+                viewModel.refreshData()
             }
             .onReceive(viewModel.$error, perform: { error in
                 if error != nil {
