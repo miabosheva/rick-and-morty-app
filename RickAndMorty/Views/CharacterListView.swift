@@ -10,7 +10,7 @@ import SwiftUI
 struct CharacterListView: View {
     
     @EnvironmentObject var viewModel: CharacterViewModel
-    var characters: [Character]
+    var characters: [CharacterResponse]
     
     var body: some View {
         List(characters) { character in

@@ -1,7 +1,7 @@
 import Foundation
 
 struct MockData {
-    public static let character = Character(
+    public static let character = CharacterResponse(
         id: 1,
         name: "Rick",
         species: "Human",
@@ -35,7 +35,7 @@ struct MockData {
     public static let location = Location(name: "Earth", url: "")
     
     public static let characters = [
-        Character(
+        CharacterResponse(
             id: 1,
             name: "Rick",
             species: "Human",
@@ -46,7 +46,7 @@ struct MockData {
             origin: location,
             location: location,
             episodes: episodes),
-        Character(
+        CharacterResponse(
             id: 2,
             name: "Morty",
             species: "Human",
@@ -57,7 +57,7 @@ struct MockData {
             origin: location,
             location: location,
             episodes: episodes),
-        Character(
+        CharacterResponse(
             id: 3,
             name: "Beth",
             species: "Human",
@@ -68,7 +68,7 @@ struct MockData {
             origin: location,
             location: location,
             episodes: episodes),
-        Character(
+        CharacterResponse(
             id: 4,
             name: "Jerry",
             species: "Human",

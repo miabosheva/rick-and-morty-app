@@ -3,9 +3,9 @@ import SwiftUI
 struct CharacterDetailView: View {
     
     @EnvironmentObject var viewModel: CharacterViewModel
-    var character: Character
+    var character: CharacterResponse
     
-    init(character: Character) {
+    init(character: CharacterResponse) {
         self.character = character
     }
     

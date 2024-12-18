@@ -2,19 +2,19 @@ import Foundation
 
 struct APIService {
     
-    static func fetchCharacters(page: Int) async throws -> CharacterResponse {
+    static func fetchCharacters(page: Int) async throws -> CharacterResponseObject {
         
         guard let url = URL(string: "https://rickandmortyapi.com/api/character/?page=\(page)") else {
             throw CharacterError.invalidURL
         }
-        
+        print(url.absoluteString)
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw CharacterError.serverError
         }
         
-        guard let result = try? JSONDecoder().decode(CharacterResponse.self, from: data) else {
+        guard let result = try? JSONDecoder().decode(CharacterResponseObject.self, from: data) else {
             throw CharacterError.invalidData
         }
 //        do {
@@ -43,7 +43,7 @@ struct APIService {
         return result
     }
     
-    static func fetchCharactersByName(name: String) async throws -> CharacterResponse {
+    static func fetchCharactersByName(name: String) async throws -> CharacterResponseObject {
         
         guard let url = URL(string: "https://rickandmortyapi.com/api/character/?name=\(name)") else {
             throw CharacterError.invalidURL
@@ -61,7 +61,7 @@ struct APIService {
             throw CharacterError.serverError
         }
         
-        guard let result = try? JSONDecoder().decode(CharacterResponse.self, from: data) else {
+        guard let result = try? JSONDecoder().decode(CharacterResponseObject.self, from: data) else {
             throw CharacterError.invalidData
         }
         

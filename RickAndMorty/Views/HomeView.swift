@@ -2,11 +2,13 @@ import SwiftUI
 
 struct HomeView: View {
     
+//    @FetchRequest(sortDescriptors: []) var characters: FetchedResults<Character>
+    
     @EnvironmentObject private var viewModel: CharacterViewModel
     @State private var showAlert = false
     @State private var searchName = ""
     
-    var displayedCharacters: [Character] {
+    var displayedCharacters: [CharacterResponse] {
         searchName.isEmpty ? viewModel.characters : viewModel.searchedCharacters
     }
     

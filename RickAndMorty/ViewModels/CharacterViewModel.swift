@@ -1,8 +1,8 @@
 import Foundation
 
 class CharacterViewModel: ObservableObject {
-    @Published var characters = [Character]()
-    @Published var searchedCharacters = [Character]()
+    @Published var characters = [CharacterResponse]()
+    @Published var searchedCharacters = [CharacterResponse]()
     @Published var error: Error?
     @Published var isLoading: Bool = false
     
@@ -49,10 +49,10 @@ extension CharacterViewModel {
             guard let totalPages = totalPages, currentPage <= totalPages else { return }
             
             let response = try await APIService.fetchCharacters(page: currentPage)
-            
-            // add the next page of results, if meanwile a search was made, make sure to avoid duplicates
-            self.characters = Array(Set(self.characters + response.results)).sorted()
             currentPage += 1
+            for char in response.results {
+                addCharacter(character: char)
+            }
         } catch {
             self.error = error
         }
@@ -80,13 +80,23 @@ extension CharacterViewModel {
         do {
             let response = try await APIService.fetchCharactersByName(name: name)
             self.searchedCharacters = response.results
-            // when fetching new characters with search, cache them with the rest of the list
-            let combinedCharacters = self.characters + self.searchedCharacters
-            let uniqueCharacters = Array(Set(combinedCharacters))
-            self.characters = uniqueCharacters.sorted()
+            for char in searchedCharacters {
+                addCharacter(character: char)
+            }
         } catch let error {
             self.searchedCharacters = []
             print(error)
+        }
+    }
+}
+
+// MARK: - Herlper Methods
+
+extension CharacterViewModel {
+    
+    private func addCharacter(character: CharacterResponse) {
+        if !self.characters.contains(where: { $0.id == character.id }) {
+            self.characters.append(character)
         }
     }
 }

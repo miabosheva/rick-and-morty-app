@@ -1,6 +1,6 @@
 import Foundation
 
-struct Character: Identifiable, Codable, Comparable, Hashable {
+struct CharacterResponse: Identifiable, Codable, Comparable, Hashable {
     var id: Int
     var name: String
     var species: String
@@ -25,11 +25,11 @@ struct Character: Identifiable, Codable, Comparable, Hashable {
         case episodes
     }
     
-    static func < (lhs: Character, rhs: Character) -> Bool {
+    static func < (lhs: CharacterResponse, rhs: CharacterResponse) -> Bool {
         lhs.id < lhs.id
     }
     
-    static func == (lhs: Character, rhs: Character) -> Bool {
+    static func == (lhs: CharacterResponse, rhs: CharacterResponse) -> Bool {
         lhs.id == lhs.id
     }
     
