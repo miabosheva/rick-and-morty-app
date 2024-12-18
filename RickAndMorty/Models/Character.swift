@@ -1,15 +1,41 @@
 import Foundation
 
-struct Character: Identifiable, Codable {
+struct Character: Identifiable, Codable, Comparable, Hashable {
     var id: Int
     var name: String
     var species: String
     var image: String
     var status: Status
     var gender: Gender
-    var episode: [String]
+    var episodeUrls: [String]
     var origin: Location
     var location: Location
+    var episodes: [Episode]?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case species
+        case image
+        case status
+        case gender
+        case episodeUrls = "episode"
+        case origin
+        case location
+        case episodes
+    }
+    
+    static func < (lhs: Character, rhs: Character) -> Bool {
+        lhs.id < lhs.id
+    }
+    
+    static func == (lhs: Character, rhs: Character) -> Bool {
+        lhs.id == lhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 struct Location: Codable {

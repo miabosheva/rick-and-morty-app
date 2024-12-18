@@ -3,7 +3,10 @@ import SwiftUI
 struct EpisodeRowView: View {
     
     @EnvironmentObject var viewModel: CharacterViewModel
+    
     var episodeUrl: String
+    var charId: Int
+    
     @State var episode: Episode?
     @State var isLoading: Bool = false
     
@@ -67,8 +70,9 @@ struct EpisodeRowView: View {
     
     func loadEpisode(url: String) async {
         isLoading = true
-        if let episode = await viewModel.fetchEpisodeForCharacter(url: url) {
-            self.episode = episode
+        await viewModel.fetchEpisodeForCharacter(charId: self.charId, episodeUrl: url)
+        if let index = viewModel.characters.firstIndex(where: { $0.id == charId }) {
+            self.episode = viewModel.characters[index].episodes?.last
         }
         isLoading = false
     }
@@ -76,5 +80,5 @@ struct EpisodeRowView: View {
 }
 
 #Preview {
-    EpisodeRowView(episodeUrl: "https://rickandmortyapi.com/api/episode/1")
+    EpisodeRowView(episodeUrl: "https://rickandmortyapi.com/api/episode/1", charId: 1)
 }

@@ -13,15 +13,25 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             Group {
-                if displayedCharacters.isEmpty {
-                    Text("No Results Found")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .font(.system(size: 22))
-                        .fontWeight(.bold)
-                        .padding(.bottom, 4)
-                        .foregroundColor(.primaryColor)
+                if viewModel.isLoading {
+                    VStack {
+                        ProgressView()
+                            .frame(width: 150, height: 150)
+                            .background(.clear)
+                            .foregroundStyle(Color.primaryColor)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    CharacterListView(characters: displayedCharacters)
+                    if displayedCharacters.isEmpty {
+                        Text("No Results Found")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .font(.system(size: 22))
+                            .fontWeight(.bold)
+                            .padding(.bottom, 4)
+                            .foregroundColor(.primaryColor)
+                    } else {
+                        CharacterListView(characters: displayedCharacters)
+                    }
                 }
             }
             .toolbarBackground(.visible, for: .navigationBar)
@@ -29,8 +39,6 @@ struct HomeView: View {
             .background(Color.secondaryBackgroundColor)
             .navigationTitle("Rick and Morty")
         }
-        // Disable refresh on child views (i.e. on Details View)
-        .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil)
         .foregroundColor(Color.primaryColor)
         .tint(Color.primaryColor)
         .refreshable {

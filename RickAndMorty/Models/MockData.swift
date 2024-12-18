@@ -8,9 +8,10 @@ struct MockData {
         image: "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
         status: .alive,
         gender: .male,
-        episode: [""],
+        episodeUrls: [""],
         origin: Location(name: "Earth", url: ""),
-        location: Location(name: "Earth", url: ""))
+        location: Location(name: "Earth", url: ""),
+        episodes: episodes)
     
     public static let episodes = [
         Episode(
@@ -41,9 +42,10 @@ struct MockData {
             image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
             status: .alive,
             gender: .male,
-            episode: [""],
+            episodeUrls: [""],
             origin: location,
-            location: location),
+            location: location,
+            episodes: episodes),
         Character(
             id: 2,
             name: "Morty",
@@ -51,9 +53,10 @@ struct MockData {
             image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
             status: .alive,
             gender: .male,
-            episode: [""],
+            episodeUrls: [""],
             origin: location,
-            location: location),
+            location: location,
+            episodes: episodes),
         Character(
             id: 3,
             name: "Beth",
@@ -61,17 +64,19 @@ struct MockData {
             image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
             status: .alive,
             gender: .female,
-            episode: [""],
+            episodeUrls: [""],
             origin: location,
-            location: location),
+            location: location,
+            episodes: episodes),
         Character(
             id: 4,
             name: "Jerry",
             species: "Human",
             image: "https://rickandmortyapi.com/api/character/avatar/.jpeg",
             status: .alive, gender: .male,
-            episode: [""],
+            episodeUrls: [""],
             origin: location,
-            location: location)
+            location: location,
+            episodes: episodes),
     ]
 }

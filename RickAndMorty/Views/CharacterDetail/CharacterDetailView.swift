@@ -3,9 +3,7 @@ import SwiftUI
 struct CharacterDetailView: View {
     
     @EnvironmentObject var viewModel: CharacterViewModel
-    @State var character: Character
-    @State private var showAlert = false
-    @State private var episodes: [String: Episode] = [:]
+    var character: Character
     
     init(character: Character) {
         self.character = character
@@ -14,13 +12,9 @@ struct CharacterDetailView: View {
     var body: some View {
         
         ZStack {
-            
             // MARK: - Background Image
-            
             VStack {
-                
                 ZStack {
-                    
                     Rectangle()
                         .fill(.black)
                         .aspectRatio(1, contentMode: .fill)
@@ -44,12 +38,10 @@ struct CharacterDetailView: View {
                         }
                         .ignoresSafeArea()
                 }
-                
                 Spacer()
             }
             
             // MARK: - Contents
-            
             ScrollView {
                 
                 VStack (spacing: 0) {
@@ -108,8 +100,8 @@ struct CharacterDetailView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: 200)
                         
-                        ForEach(character.episode, id: \.self) { episodeUrl in
-                            EpisodeRowView(episodeUrl: episodeUrl)
+                        ForEach(character.episodeUrls, id: \.self) { episodeUrl in
+                            EpisodeRowView(episodeUrl: episodeUrl, charId: character.id)
                         }
                     }
                     .padding(.bottom, 32)
@@ -118,6 +110,8 @@ struct CharacterDetailView: View {
             }
             .toolbarBackground(Color.primaryBackgroundColor.opacity(0.2),for: .navigationBar)
         }
+        // Disable refresh on child views (i.e. on Details View)
+        .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil)
         .ignoresSafeArea()
         .background(Color.primaryBackgroundColor)
     }
