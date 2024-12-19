@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		05D60F7DF0B9CF25E8FFDD00 /* Pods_RickAndMorty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12D4798F6377D5C56655811F /* Pods_RickAndMorty.framework */; };
-		0D1A8B962D145F9F00F2E93C /* CharacterEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A8B922D145F9F00F2E93C /* CharacterEntity+CoreDataClass.swift */; };
-		0D1A8B972D145F9F00F2E93C /* CharacterEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A8B932D145F9F00F2E93C /* CharacterEntity+CoreDataProperties.swift */; };
-		0D1A8B982D145F9F00F2E93C /* EpisodeEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A8B942D145F9F00F2E93C /* EpisodeEntity+CoreDataClass.swift */; };
-		0D1A8B992D145F9F00F2E93C /* EpisodeEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A8B952D145F9F00F2E93C /* EpisodeEntity+CoreDataProperties.swift */; };
 		0D410C2B2D14581E00AFC0FB /* RickAndMorty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D410C292D14581E00AFC0FB /* RickAndMorty.xcdatamodeld */; };
 		0D410C5C2D145A0600AFC0FB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D410C5B2D145A0600AFC0FB /* Persistence.swift */; };
 		0D4E80272D10EC190085C289 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E80262D10EC190085C289 /* AppColors.swift */; };
@@ -30,14 +26,14 @@
 		0D6FA4DF2D10CB2700A5A263 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6FA4DE2D10CB2700A5A263 /* HomeView.swift */; };
 		0D6FA4E12D10CB3600A5A263 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6FA4E02D10CB3600A5A263 /* CharacterViewModel.swift */; };
 		0D9F74B02D14563000B9C0B8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9F74652D1385AE00B9C0B8 /* CoreData.framework */; };
+		0DA99EA82D146E64005DFD75 /* EpisodeEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA99EA42D146E64005DFD75 /* EpisodeEntity+CoreDataClass.swift */; };
+		0DA99EA92D146E64005DFD75 /* EpisodeEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA99EA52D146E64005DFD75 /* EpisodeEntity+CoreDataProperties.swift */; };
+		0DA99EAA2D146E64005DFD75 /* CharacterEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA99EA62D146E64005DFD75 /* CharacterEntity+CoreDataClass.swift */; };
+		0DA99EAB2D146E64005DFD75 /* CharacterEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA99EA72D146E64005DFD75 /* CharacterEntity+CoreDataProperties.swift */; };
 		0DDCAD962D10DEAF000415E9 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDCAD952D10DEAF000415E9 /* Episode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D1A8B922D145F9F00F2E93C /* CharacterEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		0D1A8B932D145F9F00F2E93C /* CharacterEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		0D1A8B942D145F9F00F2E93C /* EpisodeEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		0D1A8B952D145F9F00F2E93C /* EpisodeEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		0D410C2A2D14581E00AFC0FB /* RickAndMorty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RickAndMorty.xcdatamodel; sourceTree = "<group>"; };
 		0D410C5B2D145A0600AFC0FB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		0D4E80262D10EC190085C289 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
@@ -57,6 +53,10 @@
 		0D6FA4DE2D10CB2700A5A263 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0D6FA4E02D10CB3600A5A263 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
 		0D9F74652D1385AE00B9C0B8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0DA99EA42D146E64005DFD75 /* EpisodeEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		0DA99EA52D146E64005DFD75 /* EpisodeEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		0DA99EA62D146E64005DFD75 /* CharacterEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		0DA99EA72D146E64005DFD75 /* CharacterEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		0DDCAD952D10DEAF000415E9 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		12D4798F6377D5C56655811F /* Pods_RickAndMorty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMorty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		148CCF055F619E43DC031FF9 /* Pods-RickAndMorty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.debug.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.debug.xcconfig"; sourceTree = "<group>"; };
@@ -88,10 +88,10 @@
 		0D410C692D145F6600AFC0FB /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				0D1A8B922D145F9F00F2E93C /* CharacterEntity+CoreDataClass.swift */,
-				0D1A8B932D145F9F00F2E93C /* CharacterEntity+CoreDataProperties.swift */,
-				0D1A8B942D145F9F00F2E93C /* EpisodeEntity+CoreDataClass.swift */,
-				0D1A8B952D145F9F00F2E93C /* EpisodeEntity+CoreDataProperties.swift */,
+				0DA99EA42D146E64005DFD75 /* EpisodeEntity+CoreDataClass.swift */,
+				0DA99EA52D146E64005DFD75 /* EpisodeEntity+CoreDataProperties.swift */,
+				0DA99EA62D146E64005DFD75 /* CharacterEntity+CoreDataClass.swift */,
+				0DA99EA72D146E64005DFD75 /* CharacterEntity+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -309,15 +309,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DA99EA82D146E64005DFD75 /* EpisodeEntity+CoreDataClass.swift in Sources */,
+				0DA99EA92D146E64005DFD75 /* EpisodeEntity+CoreDataProperties.swift in Sources */,
+				0DA99EAA2D146E64005DFD75 /* CharacterEntity+CoreDataClass.swift in Sources */,
+				0DA99EAB2D146E64005DFD75 /* CharacterEntity+CoreDataProperties.swift in Sources */,
 				0D410C5C2D145A0600AFC0FB /* Persistence.swift in Sources */,
 				0D6FA4DD2D10CB1A00A5A263 /* CharacterDetailView.swift in Sources */,
 				0D4E80292D10F98B0085C289 /* CharacterSpecsView.swift in Sources */,
 				0D4E80332D11C70E0085C289 /* CharacterError.swift in Sources */,
 				0D4E80392D120F290085C289 /* CharacterListView.swift in Sources */,
-				0D1A8B962D145F9F00F2E93C /* CharacterEntity+CoreDataClass.swift in Sources */,
-				0D1A8B972D145F9F00F2E93C /* CharacterEntity+CoreDataProperties.swift in Sources */,
-				0D1A8B982D145F9F00F2E93C /* EpisodeEntity+CoreDataClass.swift in Sources */,
-				0D1A8B992D145F9F00F2E93C /* EpisodeEntity+CoreDataProperties.swift in Sources */,
 				0D4E802F2D11B7600085C289 /* CharacterResponse.swift in Sources */,
 				0DDCAD962D10DEAF000415E9 /* Episode.swift in Sources */,
 				0D6FA4D92D10CAE000A5A263 /* Character.swift in Sources */,

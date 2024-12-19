@@ -38,20 +38,73 @@ struct CharacterResponse: Identifiable, Codable, Comparable, Hashable {
     }
 }
 
-struct Location: Codable {
+public struct Location: Codable {
     var name: String
     var url: String
 }
 
-enum Gender: String, Codable {
-    case female = "Female"
-    case male = "Male"
-    case genderless = "Genderless"
-    case unknown = "unknown"
+@objc
+public enum Gender: Int64, Codable {
+    case female
+    case male
+    case genderless
+    case unknown
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let stringValue = try container.decode(String.self)
+        
+        switch stringValue.lowercased() {
+        case "female":
+            self = .female
+        case "male":
+            self = .male
+        case "genderless":
+            self = .genderless
+        case "unknown":
+            self = .unknown
+        default:
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid gender value")
+        }
+    }
+    
+    func name() -> String {
+        switch self {
+        case .female: return "Female"
+        case .male: return "Male"
+        case .genderless: return "Genderless"
+        case .unknown: return "unknown"
+        }
+    }
 }
 
-enum Status: String, Codable {
-    case dead = "Dead"
-    case alive = "Alive"
-    case unknown = "unknown"
+@objc
+public enum Status: Int64, Codable {
+    case dead
+    case alive
+    case unknown
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let stringValue = try container.decode(String.self)
+        
+        switch stringValue.lowercased() {
+        case "dead":
+            self = .dead
+        case "alive":
+            self = .alive
+        case "unknown":
+            self = .unknown
+        default:
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid status value")
+        }
+    }
+    
+    func name() -> String {
+        switch self {
+        case .dead: return "Dead"
+        case .alive: return "Alive"
+        case .unknown: return "unknown"
+        }
+    }
 }

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CharacterEntity" representedClassName="CharacterEntity" syncable="YES">
-        <attribute name="episodeUrls" optional="YES" attributeType="Transformable"/>
-        <attribute name="gender" attributeType="String"/>
+        <attribute name="episodeUrls" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="gender" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="Gender"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="image" attributeType="String"/>
-        <attribute name="locationName" attributeType="String"/>
-        <attribute name="locationUrl" optional="YES" attributeType="String"/>
+        <attribute name="locationName" attributeType="String" customClassName="Location"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="originName" attributeType="String"/>
-        <attribute name="originUrl" optional="YES" attributeType="String"/>
-        <attribute name="species" optional="YES" attributeType="String"/>
-        <attribute name="status" attributeType="String"/>
+        <attribute name="originName" attributeType="String" customClassName="Location"/>
+        <attribute name="species" attributeType="String"/>
+        <attribute name="status" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="Status"/>
+        <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EpisodeEntity"/>
     </entity>
     <entity name="EpisodeEntity" representedClassName="EpisodeEntity" syncable="YES">
-        <attribute name="airDate" optional="YES" attributeType="String"/>
-        <attribute name="episodeNumber" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="url" optional="YES" attributeType="String"/>
+        <attribute name="airDate" attributeType="String"/>
+        <attribute name="episodeNumber" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
     </entity>
 </model>

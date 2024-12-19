@@ -46,9 +46,9 @@ struct CharacterListView: View {
                                 .foregroundColor(.highlightColor)
                             
                             HStack(spacing: 2) {
-                                Text(character.gender.rawValue)
+                                Text(character.gender.name())
                                 Text("•")
-                                Text(character.status.rawValue)
+                                Text(character.status.name())
                             }
                             .font(.system(size: 16))
                             .foregroundColor(.gray)

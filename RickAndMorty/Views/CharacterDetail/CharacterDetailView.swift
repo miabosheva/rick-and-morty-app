@@ -67,8 +67,8 @@ struct CharacterDetailView: View {
                             
                             HStack(spacing: 32) {
                                 CharacterSpecsView(title: "SPECIES", value: character.species)
-                                CharacterSpecsView(title: "GENDER", value: character.gender.rawValue)
-                                CharacterSpecsView(title: "STATUS", value: character.status.rawValue)
+                                CharacterSpecsView(title: "GENDER", value: character.gender.name())
+                                CharacterSpecsView(title: "STATUS", value: character.status.name())
                                 CharacterSpecsView(title: "ORIGIN", value: "Earth")
                             }
                             .padding(.horizontal, 16)
