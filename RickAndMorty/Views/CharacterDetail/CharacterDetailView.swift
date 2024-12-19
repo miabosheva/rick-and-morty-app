@@ -100,18 +100,53 @@ struct CharacterDetailView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: 200)
                         
-                        ForEach(character.episodeUrls, id: \.self) { episodeUrl in
-                            EpisodeRowView(episodeUrl: episodeUrl, charId: character.id)
+                        LazyVStack {
+                            // If the episodes have been alrerady loaded
+                            if let episodes = self.character.episodes {
+                                ForEach(episodes) { episode in
+                                    Text(episode.episodeNumber)
+                                        .fontWeight(.light)
+                                        .padding(.bottom, 4)
+                                        .padding(.top, 8)
+                                        .foregroundColor(Color.primaryColor)
+                                    
+                                    Text(episode.name)
+                                        .font(.system(size: 18))
+                                        .fontWeight(.bold)
+                                        .padding(.bottom, 4)
+                                        .foregroundColor(Color.highlightColor)
+                                    
+                                    Text(episode.airDate)
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                        .padding(.bottom, 8)
+                                    
+                                    Divider()
+                                        .background(Color.primaryColor)
+                                }
+                            } else {
+                                ForEach(character.episodeUrls, id: \.self) { episodeUrl in
+                                    EpisodeRowView(episodeUrl: episodeUrl, charId: character.id)
+                                }
+                            }
                         }
                     }
                     .padding(.bottom, 32)
                     .background(Color.primaryBackgroundColor)
                 }
             }
+            .tint(Color.primaryColor)
             .toolbarBackground(Color.primaryBackgroundColor.opacity(0.2),for: .navigationBar)
         }
-        // Disable refresh on child views (i.e. on Details View)
-        .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil)
+//        // Disable refresh on child views (i.e. on Details View)
+//        .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil)
+        .refreshable {
+            if let index = viewModel.characters.firstIndex(where: { $0.id == self.character.id }) {
+                print(viewModel.characters[index].episodes?.count)
+                viewModel.characters[index].episodes?.removeAll()
+                print(viewModel.characters[index].episodes?.count)
+            }
+        }
         .ignoresSafeArea()
         .background(Color.primaryBackgroundColor)
     }

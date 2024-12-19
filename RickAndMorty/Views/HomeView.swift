@@ -12,6 +12,10 @@ struct HomeView: View {
         searchName.isEmpty ? viewModel.characters : viewModel.searchedCharacters
     }
     
+    var searchMode: Bool {
+        return searchName != ""
+    }
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -24,7 +28,7 @@ struct HomeView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    if displayedCharacters.isEmpty {
+                    if displayedCharacters.isEmpty && searchMode {
                         Text("No Results Found")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .font(.system(size: 22))

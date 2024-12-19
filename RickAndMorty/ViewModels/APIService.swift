@@ -7,7 +7,7 @@ struct APIService {
         guard let url = URL(string: "https://rickandmortyapi.com/api/character/?page=\(page)") else {
             throw CharacterError.invalidURL
         }
-        print(url.absoluteString)
+        
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {

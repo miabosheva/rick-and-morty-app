@@ -39,8 +39,8 @@ extension CharacterViewModel {
     
     @MainActor
     func fetchCharacters() async {
-        self.isLoading = false
         do {
+            self.isLoading = true
             if totalPages == nil {
                 let response = try await APIService.fetchCharacters(page: currentPage)
                 totalPages = response.info.pages

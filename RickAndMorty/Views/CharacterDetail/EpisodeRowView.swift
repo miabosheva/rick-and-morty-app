@@ -13,8 +13,17 @@ struct EpisodeRowView: View {
     var body: some View {
         
         VStack(alignment: .leading) {
-            if let episode = self.episode {
-                if !isLoading {
+            if isLoading {
+                VStack {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    Divider()
+                        .background(Color.primaryColor)
+                }
+                .frame(height: 100)
+            } else {
+                if let episode = self.episode {
                     Text(episode.episodeNumber)
                         .fontWeight(.light)
                         .padding(.bottom, 4)
@@ -34,17 +43,6 @@ struct EpisodeRowView: View {
                     
                     Divider()
                         .background(Color.primaryColor)
-                }
-            } else {
-                if isLoading {
-                    VStack {
-                        ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        
-                        Divider()
-                            .background(Color.primaryColor)
-                    }
-                    .frame(height: 100)
                 } else {
                     RoundedRectangle(cornerRadius: 20).overlay {
                         Text("Problem Loading Episode.")
@@ -61,22 +59,40 @@ struct EpisodeRowView: View {
         .padding(.horizontal, 16)
         .onAppear {
             Task {
-                await loadEpisode(url: episodeUrl)
+                await loadEpisode()
             }
         }
     }
     
     // MARK: - Episode Network Request
     
-    func loadEpisode(url: String) async {
+    func fetchEpisode(url: String) async {
         isLoading = true
         await viewModel.fetchEpisodeForCharacter(charId: self.charId, episodeUrl: url)
+//        await Task.sleep(1_000_000_000)
         if let index = viewModel.characters.firstIndex(where: { $0.id == charId }) {
-            self.episode = viewModel.characters[index].episodes?.last
+            getLoadedEpisode(url: url)
         }
         isLoading = false
     }
     
+    // MARK: - Helper Methods
+    
+    // If episode is loaded for the character, then dont make a network request
+    private func loadEpisode() async {
+        getLoadedEpisode(url: episodeUrl)
+        if self.episode == nil {
+            await fetchEpisode(url: episodeUrl)
+        }
+    }
+    
+    private func getLoadedEpisode(url: String) {
+        if let index = viewModel.characters.firstIndex(where: { $0.id == charId }) {
+            if let loadedEpisode = viewModel.characters[index].episodes?.first(where: {$0.url == url}) {
+                self.episode = loadedEpisode
+            }
+        }
+    }
 }
 
 #Preview {

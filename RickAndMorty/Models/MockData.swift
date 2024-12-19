@@ -17,19 +17,23 @@ struct MockData {
         Episode(
             id: 1, name: "Rick and Morty go skiing",
             airDate: "December 2, 2013",
-            episodeNumber: "S01E23"),
+            episodeNumber: "S01E23",
+            url: ""),
         Episode(
             id: 2, name: "M. Night Shaym-Aliens!",
             airDate: "December 2, 2013",
-            episodeNumber: "S01E23"),
+            episodeNumber: "S01E23",
+            url: ""),
         Episode(
             id: 3, name: "M. Night Shaym-Aliens!",
             airDate: "December 2, 2013",
-            episodeNumber: "S01E23"),
+            episodeNumber: "S01E23",
+            url: ""),
         Episode(
             id: 4, name: "M. Night Shaym-Aliens!",
             airDate: "December 2, 2013",
-            episodeNumber: "S01E23")
+            episodeNumber: "S01E23",
+            url: "")
     ]
     
     public static let location = Location(name: "Earth", url: "")
