@@ -10,7 +10,7 @@ struct CharacterResponse: Identifiable, Codable, Comparable, Hashable {
     var episodeUrls: [String]
     var origin: Location
     var location: Location
-    var episodes: [Episode]?
+    var episodes: [EpisodeResponse]?
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -7,7 +7,7 @@ struct EpisodeRowView: View {
     var episodeUrl: String
     var charId: Int
     
-    @State var episode: Episode?
+    @State var episode: EpisodeResponse?
     @State var isLoading: Bool = false
     
     var body: some View {
@@ -70,9 +70,7 @@ struct EpisodeRowView: View {
         isLoading = true
         await viewModel.fetchEpisodeForCharacter(charId: self.charId, episodeUrl: url)
 //        await Task.sleep(1_000_000_000)
-        if let index = viewModel.characters.firstIndex(where: { $0.id == charId }) {
-            getLoadedEpisode(url: url)
-        }
+        getLoadedEpisode(url: url)
         isLoading = false
     }
     

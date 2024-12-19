@@ -25,7 +25,7 @@ struct APIService {
         return result
     }
     
-    static func fetchEpisodeWithURL(episodeURL: String) async throws -> Episode {
+    static func fetchEpisodeWithURL(episodeURL: String) async throws -> EpisodeResponse {
         guard let url = URL(string: episodeURL) else {
             throw CharacterError.invalidURL
         }
@@ -36,7 +36,7 @@ struct APIService {
             throw CharacterError.serverError
         }
         
-        guard let result = try? JSONDecoder().decode(Episode.self, from: data) else {
+        guard let result = try? JSONDecoder().decode(EpisodeResponse.self, from: data) else {
             throw CharacterError.invalidData
         }
         

@@ -2,13 +2,13 @@ import SwiftUI
 
 @main
 struct RickAndMortyApp: App {
-//    @StateObject private var dataController = DataController()
+    let persistenceController = PersistenceController.shared
     
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .environmentObject(CharacterViewModel())
-//                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

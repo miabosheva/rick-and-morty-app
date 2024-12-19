@@ -1,8 +1,14 @@
 import SwiftUI
+import CoreData
 
 struct HomeView: View {
     
-//    @FetchRequest(sortDescriptors: []) var characters: FetchedResults<Character>
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \CharacterEntity.id, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<CharacterEntity>
     
     @EnvironmentObject private var viewModel: CharacterViewModel
     @State private var showAlert = false
@@ -68,5 +74,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

@@ -14,22 +14,22 @@ struct MockData {
         episodes: episodes)
     
     public static let episodes = [
-        Episode(
+        EpisodeResponse(
             id: 1, name: "Rick and Morty go skiing",
             airDate: "December 2, 2013",
             episodeNumber: "S01E23",
             url: ""),
-        Episode(
+        EpisodeResponse(
             id: 2, name: "M. Night Shaym-Aliens!",
             airDate: "December 2, 2013",
             episodeNumber: "S01E23",
             url: ""),
-        Episode(
+        EpisodeResponse(
             id: 3, name: "M. Night Shaym-Aliens!",
             airDate: "December 2, 2013",
             episodeNumber: "S01E23",
             url: ""),
-        Episode(
+        EpisodeResponse(
             id: 4, name: "M. Night Shaym-Aliens!",
             airDate: "December 2, 2013",
             episodeNumber: "S01E23",

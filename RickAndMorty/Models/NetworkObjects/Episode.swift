@@ -1,6 +1,6 @@
 import Foundation
 
-struct Episode: Identifiable, Codable{
+struct EpisodeResponse: Identifiable, Codable {
     var id: Int
     var name: String
     var airDate: String
