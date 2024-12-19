@@ -11,6 +11,7 @@ class CharacterViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     @Published var loadCharacters = [CharacterEntity]()
+    @Published var loadedSearchedCharacters = [CharacterEntity]()
     
     private var currentPage: Int = 1
     private var totalPages: Int?
@@ -29,7 +30,7 @@ class CharacterViewModel: ObservableObject {
     func refreshData() {
         currentPage = 1
         totalPages = nil
-        characters.removeAll()
+        deleteAllCharacters()
         loadData()
     }
     
@@ -60,11 +61,6 @@ extension CharacterViewModel {
             for char in response.results {
                 addCharacter(character: char)
             }
-            
-            for char in response.results {
-                saveCharacter(characterResponse: char)
-            }
-            print(loadCharacters)
         } catch {
             self.error = error
         }
@@ -91,12 +87,17 @@ extension CharacterViewModel {
     func fetchCharactersByName(name: String) async {
         do {
             let response = try await APIService.fetchCharactersByName(name: name)
-            self.searchedCharacters = response.results
-            for char in searchedCharacters {
+            for char in response.results {
                 addCharacter(character: char)
             }
+            let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+            let results = try context.fetch(fetchRequest)
+            self.loadCharacters = results
+            print("SEARCH: \(loadCharacters[0].name)")
         } catch let error {
-            self.searchedCharacters = []
+            self.loadCharacters = []
             print(error)
         }
     }
@@ -106,17 +107,9 @@ extension CharacterViewModel {
 
 extension CharacterViewModel {
     
-    func saveCharacter(characterResponse: CharacterResponse) {
-        let newCharacter = CharacterEntity(context: context)
+    private func saveCharacter(characterResponse: CharacterResponse) {
         
-        newCharacter.name = characterResponse.name
-        newCharacter.species = characterResponse.species
-        newCharacter.image = characterResponse.image
-        newCharacter.originName = characterResponse.origin.name
-        newCharacter.locationName = characterResponse.location.name
-        newCharacter.episodeUrls = characterResponse.episodeUrls.joined(separator: ",")
-        newCharacter.status = Int64(characterResponse.status.rawValue)
-        newCharacter.gender = Int64(characterResponse.gender.rawValue)
+        let newCharacter = CharacterEntity(context: context, characterResponse: characterResponse)
         
         do {
             try context.save()
@@ -126,13 +119,26 @@ extension CharacterViewModel {
         }
     }
     
-    func fetchCharacters() {
+    private func fetchCharacters() {
         let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
         do {
             loadCharacters = try context.fetch(fetchRequest)
-            print("number of characters: \(loadCharacters.count)")
+            print("number of characters fetched: \(loadCharacters.count)")
         } catch {
             print("Error fetching characters: \(error)")
+        }
+    }
+    
+    private func deleteAllCharacters() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CharacterEntity.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+            print("All Character objects have been deleted.")
+        } catch {
+            print("Failed to delete Character objects: \(error.localizedDescription)")
         }
     }
 }
@@ -141,9 +147,10 @@ extension CharacterViewModel {
 
 extension CharacterViewModel {
     
+    // avoid duplicates when adding characters
     private func addCharacter(character: CharacterResponse) {
-        if !self.characters.contains(where: { $0.id == character.id }) {
-            self.characters.append(character)
+        if !loadCharacters.contains(where: { $0.id == character.id }) {
+            saveCharacter(characterResponse: character)
         }
     }
 }
