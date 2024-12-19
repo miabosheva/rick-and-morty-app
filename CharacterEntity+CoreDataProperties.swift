@@ -16,7 +16,7 @@ extension CharacterEntity {
         return NSFetchRequest<CharacterEntity>(entityName: "CharacterEntity")
     }
 
-    @NSManaged public var episodeUrls: [String]?
+    @NSManaged public var episodeUrls: String?
     @NSManaged public var gender: Int64
     @NSManaged public var id: Int64
     @NSManaged public var image: String?

@@ -17,7 +17,7 @@ struct PersistenceController {
             let newItem = CharacterEntity(context: viewContext)
             newItem.id = Int64(index)
             newItem.name = "name \(index)"
-            newItem.episodeUrls = []
+            newItem.episodeUrls = ""
             newItem.gender = Gender.female.rawValue
             newItem.image = ""
             newItem.locationName = "location"

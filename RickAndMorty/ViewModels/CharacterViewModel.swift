@@ -1,15 +1,22 @@
 import Foundation
+import CoreData
 
 class CharacterViewModel: ObservableObject {
+    
+    private let context: NSManagedObjectContext
+    
     @Published var characters = [CharacterResponse]()
     @Published var searchedCharacters = [CharacterResponse]()
     @Published var error: Error?
     @Published var isLoading: Bool = false
     
+    @Published var loadCharacters = [CharacterEntity]()
+    
     private var currentPage: Int = 1
     private var totalPages: Int?
     
-    init() {
+    init(context: NSManagedObjectContext) {
+        self.context = context
         loadData()
     }
     
@@ -53,6 +60,11 @@ extension CharacterViewModel {
             for char in response.results {
                 addCharacter(character: char)
             }
+            
+            for char in response.results {
+                saveCharacter(characterResponse: char)
+            }
+            print(loadCharacters)
         } catch {
             self.error = error
         }
@@ -90,7 +102,42 @@ extension CharacterViewModel {
     }
 }
 
-// MARK: - Herlper Methods
+// MARK: - Core Data Methods
+
+extension CharacterViewModel {
+    
+    func saveCharacter(characterResponse: CharacterResponse) {
+        let newCharacter = CharacterEntity(context: context)
+        
+        newCharacter.name = characterResponse.name
+        newCharacter.species = characterResponse.species
+        newCharacter.image = characterResponse.image
+        newCharacter.originName = characterResponse.origin.name
+        newCharacter.locationName = characterResponse.location.name
+        newCharacter.episodeUrls = characterResponse.episodeUrls.joined(separator: ",")
+        newCharacter.status = Int64(characterResponse.status.rawValue)
+        newCharacter.gender = Int64(characterResponse.gender.rawValue)
+        
+        do {
+            try context.save()
+            fetchCharacters()
+        } catch {
+            print("Error saving character: \(error)")
+        }
+    }
+    
+    func fetchCharacters() {
+        let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
+        do {
+            loadCharacters = try context.fetch(fetchRequest)
+            print("number of characters: \(loadCharacters.count)")
+        } catch {
+            print("Error fetching characters: \(error)")
+        }
+    }
+}
+
+// MARK: - Helper Methods
 
 extension CharacterViewModel {
     

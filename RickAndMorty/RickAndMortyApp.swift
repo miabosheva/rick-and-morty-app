@@ -7,7 +7,7 @@ struct RickAndMortyApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .environmentObject(CharacterViewModel())
+                .environmentObject(CharacterViewModel(context: persistenceController.container.viewContext))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
