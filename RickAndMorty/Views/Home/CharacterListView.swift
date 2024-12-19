@@ -1,10 +1,3 @@
-//
-//  CharacterListSubview.swift
-//  RickAndMorty
-//
-//  Created by Mia on 12/17/24.
-//
-
 import SwiftUI
 
 struct CharacterListView: View {
