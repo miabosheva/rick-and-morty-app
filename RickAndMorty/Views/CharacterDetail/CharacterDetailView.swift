@@ -102,27 +102,29 @@ struct CharacterDetailView: View {
                         
                         LazyVStack {
                             // If the episodes have been alrerady loaded
-                            if let episodes = self.character.episodes as? Set<EpisodeEntity> {
-                                ForEach(Array(episodes), id: \.self) { episode in
-                                    Text(episode.episodeNumber)
-                                        .fontWeight(.light)
-                                        .padding(.bottom, 4)
-                                        .padding(.top, 8)
-                                        .foregroundColor(Color.primaryColor)
-                                    
-                                    Text(episode.name)
-                                        .font(.system(size: 18))
-                                        .fontWeight(.bold)
-                                        .padding(.bottom, 4)
-                                        .foregroundColor(Color.highlightColor)
-                                    
-                                    Text(episode.airDate)
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.gray)
-                                        .padding(.bottom, 8)
-                                    
-                                    Divider()
-                                        .background(Color.primaryColor)
+                            if self.character.episodes.count > 0 {
+                                if let episodes = self.character.episodes as? Set<EpisodeEntity> {
+                                    ForEach(Array(episodes), id: \.self) { episode in
+                                        Text(episode.episodeNumber)
+                                            .fontWeight(.light)
+                                            .padding(.bottom, 4)
+                                            .padding(.top, 8)
+                                            .foregroundColor(Color.primaryColor)
+                                        
+                                        Text(episode.name)
+                                            .font(.system(size: 18))
+                                            .fontWeight(.bold)
+                                            .padding(.bottom, 4)
+                                            .foregroundColor(Color.highlightColor)
+                                        
+                                        Text(episode.airDate)
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
+                                            .padding(.bottom, 8)
+                                        
+                                        Divider()
+                                            .background(Color.primaryColor)
+                                    }
                                 }
                             } else {
                                 ForEach(character.episodeUrls.split(separator: ",").map { String($0) }, id: \.self) { episodeUrl in

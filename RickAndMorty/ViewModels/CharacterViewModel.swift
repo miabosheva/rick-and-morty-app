@@ -69,43 +69,6 @@ extension CharacterViewModel {
         }
         self.isLoading = false
     }
-    
-    @MainActor
-    func fetchEpisodeForCharacter(charId: Int, episodeUrl: String) async {
-        do {
-            let response = try await APIService.fetchEpisodeWithURL(episodeURL: episodeUrl)
-            let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "id == %d", charId)
-            
-            if let character = try context.fetch(fetchRequest).first {
-                if character.episodes.count == 0 {
-                    character.episodes = [response]
-                } else {
-                    character.episodes.adding(response)
-                }
-                try context.save()
-            }
-        } catch let error {
-            print("Error fetching episode: \(error.localizedDescription)")
-        }
-    }
-    
-    @MainActor
-    func fetchCharactersByName(name: String) async {
-        do {
-            let response = try await APIService.fetchCharactersByName(name: name)
-            for char in response.results {
-                addCharacter(character: char)
-            }
-            let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
-            let results = try context.fetch(fetchRequest)
-            self.searchedCharacters = results
-        } catch let error {
-            self.searchedCharacters = []
-            print(error)
-        }
-    }
 }
 
 // MARK: - Helper Methods
@@ -196,6 +159,40 @@ extension CharacterViewModel {
             print("Episodes refreshed for character with ID \(characterId).")
         } catch {
             print("Error refreshing episodes: \(error.localizedDescription)")
+        }
+    }
+    
+    @MainActor
+    func fetchEpisodeForCharacter(charId: Int, episodeUrl: String) async {
+        do {
+            let response = try await APIService.fetchEpisodeWithURL(episodeURL: episodeUrl)
+            let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "id == %d", charId)
+            let newEpisode = EpisodeEntity(context: self.context, episodeResponse: response)
+            
+            if let character = try context.fetch(fetchRequest).first {
+                character.addToEpisodes(newEpisode)
+                try context.save()
+            }
+        } catch let error {
+            print("Error fetching episode: \(error.localizedDescription)")
+        }
+    }
+    
+    @MainActor
+    func fetchCharactersByName(name: String) async {
+        do {
+            let response = try await APIService.fetchCharactersByName(name: name)
+            for char in response.results {
+                addCharacter(character: char)
+            }
+            let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
+            let results = try context.fetch(fetchRequest)
+            self.searchedCharacters = results
+        } catch let error {
+            self.searchedCharacters = []
+            print(error)
         }
     }
 }
