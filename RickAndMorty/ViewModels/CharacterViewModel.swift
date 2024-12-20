@@ -26,7 +26,6 @@ class CharacterViewModel: ObservableObject {
     }
     
     func refreshData() {
-        searchedCharacters = []
         currentPage = 1
         totalPages = nil
         deleteAllCharacters()
