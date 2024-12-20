@@ -79,6 +79,7 @@ extension CharacterViewModel {
     private func addCharacter(character: CharacterResponse) {
         let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %d", character.id)
+        self.characters = getLoadedCharacters() ?? []
         
         do {
             let existingCharacters = try context.fetch(fetchRequest)
@@ -100,9 +101,9 @@ extension CharacterViewModel {
     
     private func saveCharacter(characterResponse: CharacterResponse) {
         let character = CharacterEntity(context: context, characterResponse: characterResponse)
-        self.characters.append(character)
         do {
             try context.save()
+            self.characters = getLoadedCharacters() ?? []
         } catch {
             print("Error saving character: \(error)")
         }
@@ -127,7 +128,7 @@ extension CharacterViewModel {
         do {
             try context.execute(deleteRequest)
             try context.save()
-            self.characters = []
+            self.characters = try getLoadedCharacters() ?? []
             print("All Character objects have been deleted.")
             if let loadedCharacters = getLoadedCharacters() {
                 print("Characters remaining after delete: \(loadedCharacters.count)")

@@ -2,12 +2,6 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \CharacterEntity.id, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<CharacterEntity>
-    
     @EnvironmentObject private var viewModel: CharacterViewModel
     @State private var showAlert = false
     @State private var searchName = ""
