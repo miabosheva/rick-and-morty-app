@@ -31,7 +31,6 @@
 		0D6FA4DD2D10CB1A00A5A263 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6FA4DC2D10CB1A00A5A263 /* CharacterDetailView.swift */; };
 		0D6FA4DF2D10CB2700A5A263 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6FA4DE2D10CB2700A5A263 /* HomeView.swift */; };
 		0D6FA4E12D10CB3600A5A263 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6FA4E02D10CB3600A5A263 /* CharacterViewModel.swift */; };
-		0D7278A32D15ACD100BF7669 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7278A22D15ACD100BF7669 /* logo.png */; };
 		0D9F74B02D14563000B9C0B8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9F74652D1385AE00B9C0B8 /* CoreData.framework */; };
 		0DDCAD962D10DEAF000415E9 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDCAD952D10DEAF000415E9 /* Episode.swift */; };
 /* End PBXBuildFile section */
@@ -61,7 +60,6 @@
 		0D6FA4DC2D10CB1A00A5A263 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		0D6FA4DE2D10CB2700A5A263 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0D6FA4E02D10CB3600A5A263 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
-		0D7278A22D15ACD100BF7669 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = ../../../logo.png; sourceTree = "<group>"; };
 		0D9F74652D1385AE00B9C0B8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0DDCAD952D10DEAF000415E9 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		12D4798F6377D5C56655811F /* Pods_RickAndMorty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMorty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +104,6 @@
 		0D4E80252D10EBD70085C289 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0D7278A22D15ACD100BF7669 /* logo.png */,
 				0D6FA4CA2D10717200A5A263 /* Assets.xcassets */,
 				0D4E80262D10EC190085C289 /* AppColors.swift */,
 			);
@@ -288,7 +285,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D7278A32D15ACD100BF7669 /* logo.png in Resources */,
 				0D44B2452D15A73400EAADAE /* LaunchScreen.storyboard in Resources */,
 				0D6FA4CE2D10717200A5A263 /* Preview Assets.xcassets in Resources */,
 				0D6FA4CB2D10717200A5A263 /* Assets.xcassets in Resources */,
