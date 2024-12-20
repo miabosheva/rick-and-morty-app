@@ -1,4 +1,5 @@
 import SwiftUI
+import CachedAsyncImage
 
 struct CharacterDetailView: View {
     
@@ -20,7 +21,7 @@ struct CharacterDetailView: View {
                         .aspectRatio(1, contentMode: .fill)
                         .frame(maxWidth: .infinity, maxHeight: 400)
                         .overlay {
-                            AsyncImage(url: URL(string: character.image)) { phase in
+                            CachedAsyncImage(url: URL(string: character.image)) { phase in
                                 switch phase {
                                 case .success(let image):
                                     image
