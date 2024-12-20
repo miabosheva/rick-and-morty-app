@@ -24,7 +24,7 @@ struct PersistenceController {
             newItem.originName = "originName"
             newItem.species = ""
             newItem.status = Status.alive.rawValue
-            newItem.episodes = nil
+            newItem.episodes = NSSet()
         }
         do {
             try viewContext.save()

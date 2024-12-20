@@ -3,7 +3,7 @@ import SwiftUI
 struct CharacterListView: View {
     
     @EnvironmentObject var viewModel: CharacterViewModel
-    var characters: [CharacterResponse]
+    var characters: [CharacterEntity]
     
     var body: some View {
         List(characters) { character in
@@ -46,9 +46,9 @@ struct CharacterListView: View {
                                 .foregroundColor(.highlightColor)
                             
                             HStack(spacing: 2) {
-                                Text(character.gender.name())
+                                Text(Gender(rawValue: character.gender)?.name() ?? "")
                                 Text("•")
-                                Text(character.status.name())
+                                Text(Status(rawValue: character.status)?.name() ?? "")
                             }
                             .font(.system(size: 16))
                             .foregroundColor(.gray)
@@ -70,8 +70,4 @@ struct CharacterListView: View {
         .listStyle(PlainListStyle())
         .background(Color.secondaryBackgroundColor)
     }
-}
-
-#Preview {
-    CharacterListView(characters: MockData.characters)
 }

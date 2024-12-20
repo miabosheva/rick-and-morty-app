@@ -12,7 +12,7 @@ struct HomeView: View {
     @State private var showAlert = false
     @State private var searchName = ""
     
-    var displayedCharacters: [CharacterResponse] {
+    var displayedCharacters: [CharacterEntity] {
         searchName.isEmpty ? viewModel.characters : viewModel.searchedCharacters
     }
     

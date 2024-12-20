@@ -7,7 +7,7 @@ struct EpisodeRowView: View {
     var episodeUrl: String
     var charId: Int
     
-    @State var episode: EpisodeResponse?
+    @State var episode: EpisodeEntity?
     @State var isLoading: Bool = false
     
     var body: some View {
@@ -85,9 +85,9 @@ struct EpisodeRowView: View {
     }
     
     private func getLoadedEpisode(url: String) {
-        if let index = viewModel.characters.firstIndex(where: { $0.id == charId }) {
-            if let loadedEpisode = viewModel.characters[index].episodes?.first(where: {$0.url == url}) {
-                self.episode = loadedEpisode
+        if let character = viewModel.characters.first(where: { $0.id == charId }) {
+            if let loadedEpisode = character.episodes.first(where: { ($0 as? EpisodeEntity)?.url == url }) {
+                self.episode = loadedEpisode as? EpisodeEntity
             }
         }
     }

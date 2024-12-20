@@ -5,13 +5,11 @@ class CharacterViewModel: ObservableObject {
     
     private let context: NSManagedObjectContext
     
-    @Published var characters = [CharacterResponse]()
-    @Published var searchedCharacters = [CharacterResponse]()
+    @Published var searchedCharacters = [CharacterEntity]()
+    @Published var characters = [CharacterEntity]()
+    
     @Published var error: Error?
     @Published var isLoading: Bool = false
-    
-    @Published var loadCharacters = [CharacterEntity]()
-    @Published var loadedSearchedCharacters = [CharacterEntity]()
     
     private var currentPage: Int = 1
     private var totalPages: Int?
@@ -28,10 +26,15 @@ class CharacterViewModel: ObservableObject {
     }
     
     func refreshData() {
+        searchedCharacters = []
         currentPage = 1
         totalPages = nil
         deleteAllCharacters()
         loadData()
+    }
+    
+    func refreshEpisodes(characterId: Int) {
+        deleteEpisodes(characterId: characterId)
     }
     
     func fetchSearchData(name: String) {
@@ -71,12 +74,16 @@ extension CharacterViewModel {
     func fetchEpisodeForCharacter(charId: Int, episodeUrl: String) async {
         do {
             let response = try await APIService.fetchEpisodeWithURL(episodeURL: episodeUrl)
-            if let index = self.characters.firstIndex(where: { $0.id == charId }) {
-                if self.characters[index].episodes == nil {
-                    self.characters[index].episodes = [response]
+            let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "id == %d", charId)
+            
+            if let character = try context.fetch(fetchRequest).first {
+                if character.episodes.count == 0 {
+                    character.episodes = [response]
                 } else {
-                    self.characters[index].episodes?.append(response)
+                    character.episodes.adding(response)
                 }
+                try context.save()
             }
         } catch let error {
             print("Error fetching episode: \(error.localizedDescription)")
@@ -92,13 +99,34 @@ extension CharacterViewModel {
             }
             let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
             fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
             let results = try context.fetch(fetchRequest)
-            self.loadCharacters = results
-            print("SEARCH: \(loadCharacters[0].name)")
+            self.searchedCharacters = results
         } catch let error {
-            self.loadCharacters = []
+            self.searchedCharacters = []
             print(error)
+        }
+    }
+}
+
+// MARK: - Helper Methods
+
+extension CharacterViewModel {
+    
+    // check for duplicates before adding the character
+    private func addCharacter(character: CharacterResponse) {
+        let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %d", character.id)
+        
+        do {
+            let existingCharacters = try context.fetch(fetchRequest)
+            if existingCharacters.isEmpty {
+                print("Saving character with ID: \(character.id)")
+                saveCharacter(characterResponse: character)
+            } else {
+                print("Character with ID \(character.id) already exists.")
+            }
+        } catch {
+            print("Error checking for existing character: \(error.localizedDescription)")
         }
     }
 }
@@ -108,25 +136,25 @@ extension CharacterViewModel {
 extension CharacterViewModel {
     
     private func saveCharacter(characterResponse: CharacterResponse) {
-        
-        let newCharacter = CharacterEntity(context: context, characterResponse: characterResponse)
-        
+        let character = CharacterEntity(context: context, characterResponse: characterResponse)
+        self.characters.append(character)
         do {
             try context.save()
-            fetchCharacters()
         } catch {
             print("Error saving character: \(error)")
         }
     }
     
-    private func fetchCharacters() {
+    private func getLoadedCharacters() -> [CharacterEntity]? {
         let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
         do {
-            loadCharacters = try context.fetch(fetchRequest)
-            print("number of characters fetched: \(loadCharacters.count)")
+            let loadedCharacters = try context.fetch(fetchRequest)
+            print("Fetched characters: \(loadedCharacters.count)")
+            return loadedCharacters
         } catch {
             print("Error fetching characters: \(error)")
         }
+        return nil
     }
     
     private func deleteAllCharacters() {
@@ -136,21 +164,38 @@ extension CharacterViewModel {
         do {
             try context.execute(deleteRequest)
             try context.save()
+            self.characters = []
             print("All Character objects have been deleted.")
+            if let loadedCharacters = getLoadedCharacters() {
+                print("Characters remaining after delete: \(loadedCharacters.count)")
+            }
         } catch {
             print("Failed to delete Character objects: \(error.localizedDescription)")
         }
     }
-}
-
-// MARK: - Helper Methods
-
-extension CharacterViewModel {
     
-    // avoid duplicates when adding characters
-    private func addCharacter(character: CharacterResponse) {
-        if !loadCharacters.contains(where: { $0.id == character.id }) {
-            saveCharacter(characterResponse: character)
+    func deleteEpisodes(characterId: Int) {
+        let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %d", characterId)
+        
+        do {
+            let characters = try context.fetch(fetchRequest)
+            
+            guard let character = characters.first else {
+                print("Character with ID \(characterId) not found.")
+                return
+            }
+            
+            if let episodes = character.episodes as? NSMutableSet {
+                episodes.removeAllObjects()
+            } else {
+                character.episodes = NSSet()
+            }
+            
+            try context.save()
+            print("Episodes refreshed for character with ID \(characterId).")
+        } catch {
+            print("Error refreshing episodes: \(error.localizedDescription)")
         }
     }
 }

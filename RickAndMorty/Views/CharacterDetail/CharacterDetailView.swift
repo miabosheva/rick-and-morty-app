@@ -3,9 +3,9 @@ import SwiftUI
 struct CharacterDetailView: View {
     
     @EnvironmentObject var viewModel: CharacterViewModel
-    var character: CharacterResponse
+    var character: CharacterEntity
     
-    init(character: CharacterResponse) {
+    init(character: CharacterEntity) {
         self.character = character
     }
     
@@ -67,9 +67,9 @@ struct CharacterDetailView: View {
                             
                             HStack(spacing: 32) {
                                 CharacterSpecsView(title: "SPECIES", value: character.species)
-                                CharacterSpecsView(title: "GENDER", value: character.gender.name())
-                                CharacterSpecsView(title: "STATUS", value: character.status.name())
-                                CharacterSpecsView(title: "ORIGIN", value: "Earth")
+                                CharacterSpecsView(title: "GENDER", value: Gender(rawValue: character.gender)?.name() ?? "")
+                                CharacterSpecsView(title: "STATUS", value: Status(rawValue: character.status)?.name() ?? "")
+                                CharacterSpecsView(title: "ORIGIN", value: character.originName)
                             }
                             .padding(.horizontal, 16)
                         }
@@ -102,8 +102,8 @@ struct CharacterDetailView: View {
                         
                         LazyVStack {
                             // If the episodes have been alrerady loaded
-                            if let episodes = self.character.episodes {
-                                ForEach(episodes) { episode in
+                            if let episodes = self.character.episodes as? Set<EpisodeEntity> {
+                                ForEach(Array(episodes), id: \.self) { episode in
                                     Text(episode.episodeNumber)
                                         .fontWeight(.light)
                                         .padding(.bottom, 4)
@@ -125,8 +125,8 @@ struct CharacterDetailView: View {
                                         .background(Color.primaryColor)
                                 }
                             } else {
-                                ForEach(character.episodeUrls, id: \.self) { episodeUrl in
-                                    EpisodeRowView(episodeUrl: episodeUrl, charId: character.id)
+                                ForEach(character.episodeUrls.split(separator: ",").map { String($0) }, id: \.self) { episodeUrl in
+                                    EpisodeRowView(episodeUrl: episodeUrl, charId: Int(character.id))
                                 }
                             }
                         }
@@ -141,17 +141,13 @@ struct CharacterDetailView: View {
 //        // Disable refresh on child views (i.e. on Details View)
 //        .environment(\EnvironmentValues.refresh as! WritableKeyPath<EnvironmentValues, RefreshAction?>, nil)
         .refreshable {
-            if let index = viewModel.characters.firstIndex(where: { $0.id == self.character.id }) {
-                print(viewModel.characters[index].episodes?.count)
-                viewModel.characters[index].episodes?.removeAll()
-                print(viewModel.characters[index].episodes?.count)
-            }
+            viewModel.refreshEpisodes(characterId: Int(self.character.id))
         }
         .ignoresSafeArea()
         .background(Color.primaryBackgroundColor)
     }
 }
 
-#Preview {
-    CharacterDetailView(character: MockData.character)
-}
+//#Preview {
+//    CharacterDetailView(character: MockData.character)
+//}
