@@ -1,4 +1,5 @@
 import SwiftUI
+import CachedAsyncImage
 
 struct CharacterListView: View {
     
@@ -13,7 +14,7 @@ struct CharacterListView: View {
                         .fill(Color.primaryBackgroundColor)
                         .frame(width: 100, height: 100)
                         .overlay {
-                            AsyncImage(url: URL(string: character.image)) { phase in
+                            CachedAsyncImage(url: URL(string: character.image)) { phase in
                                 switch phase {
                                 case .success(let image):
                                     image

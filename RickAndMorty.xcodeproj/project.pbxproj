@@ -10,6 +10,7 @@
 		05D60F7DF0B9CF25E8FFDD00 /* Pods_RickAndMorty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12D4798F6377D5C56655811F /* Pods_RickAndMorty.framework */; };
 		0D410C2B2D14581E00AFC0FB /* RickAndMorty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D410C292D14581E00AFC0FB /* RickAndMorty.xcdatamodeld */; };
 		0D410C5C2D145A0600AFC0FB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D410C5B2D145A0600AFC0FB /* Persistence.swift */; };
+		0D44B2422D15A5A800EAADAE /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0D44B2412D15A5A800EAADAE /* CachedAsyncImage */; };
 		0D4E16F72D1476B200E5439C /* EpisodeEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E16F32D1476B200E5439C /* EpisodeEntity+CoreDataClass.swift */; };
 		0D4E16F82D1476B200E5439C /* EpisodeEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E16F42D1476B200E5439C /* EpisodeEntity+CoreDataProperties.swift */; };
 		0D4E16F92D1476B200E5439C /* CharacterEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4E16F52D1476B200E5439C /* CharacterEntity+CoreDataClass.swift */; };
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D44B2422D15A5A800EAADAE /* CachedAsyncImage in Frameworks */,
 				05D60F7DF0B9CF25E8FFDD00 /* Pods_RickAndMorty.framework in Frameworks */,
 				0D9F74B02D14563000B9C0B8 /* CoreData.framework in Frameworks */,
 			);
@@ -230,6 +232,9 @@
 			dependencies = (
 			);
 			name = RickAndMorty;
+			packageProductDependencies = (
+				0D44B2412D15A5A800EAADAE /* CachedAsyncImage */,
+			);
 			productName = RickAndMorty;
 			productReference = 0D6FA4C32D10717100A5A263 /* RickAndMorty.app */;
 			productType = "com.apple.product-type.application";
@@ -258,6 +263,9 @@
 				Base,
 			);
 			mainGroup = 0D6FA4BA2D10717100A5A263;
+			packageReferences = (
+				0D44B2402D15A5A800EAADAE /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+			);
 			productRefGroup = 0D6FA4C42D10717100A5A263 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -538,6 +546,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0D44B2402D15A5A800EAADAE /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0D44B2412D15A5A800EAADAE /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D44B2402D15A5A800EAADAE /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0D410C292D14581E00AFC0FB /* RickAndMorty.xcdatamodeld */ = {
