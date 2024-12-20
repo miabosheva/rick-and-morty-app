@@ -169,7 +169,7 @@ extension CharacterViewModel {
             let fetchRequest: NSFetchRequest<CharacterEntity> = CharacterEntity.fetchRequest()
             fetchRequest.predicate = NSPredicate(format: "id == %d", charId)
             let newEpisode = EpisodeEntity(context: self.context, episodeResponse: response)
-            
+//            try await Task.sleep(nanoseconds: 1_000_000_000)
             if let character = try context.fetch(fetchRequest).first {
                 character.addToEpisodes(newEpisode)
                 try context.save()
